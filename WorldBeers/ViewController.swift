@@ -32,17 +32,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.beerVM = BeerVM()
         
         Task{
-            await getData()
+            await getData(funcName: beerVM.getMoreBeers, req: "")
         }
     }
     
-    func getData() async{
+    func getData(funcName: (String) async throws -> [Beer], req: String?) async{
         DispatchQueue.main.async {
             self.activityIndicatorView.startAnimating()
         }
         
         do{
-            try await self.beerVM.getFirstBeers()
+            let _ = try await funcName(req!)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -73,19 +73,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        //debugPrint(pages)
         let req_beer = (beerVM.searchText != "") ? "&beer_name=\(beerVM.searchText)" : ""
         let lastElement = (beerVM.pagination * beerVM.page) - 1
-//        if indexPath.row == lastElement && !beerVM.pages.contains(beerVM.page+1) {
-//            self.af_request(url: "https://api.punkapi.com/v2/beers?per_page=\(self.pagination)&page=\(beerVM.page+1)\(req_beer)", structure: [Beer].self, completion: {more in
-//            self.items.append(contentsOf: more)
-//            self.page += 1
-//            self.pages.append(self.page)
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//            })
-//        }
+        if indexPath.row == lastElement && !beerVM.pages.contains(beerVM.page+1) {
+            Task{
+                await getData(funcName: beerVM.getMoreBeers, req: req_beer)
+            }
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -94,32 +88,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if searchText.isEmpty {
             self.searchBarView.resignFirstResponder()
-//            self.af_request(url: "https://api.punkapi.com/v2/beers?per_page=\(self.pagination)", structure: [Beer].self, completion: {res in
-//                self.items = res
-//                self.page = 1
-//                self.pages = [1]
-//                DispatchQueue.main.async {
-//                    self.tableView.reloadData()
-//                }
-//            })
+            Task{
+                await getData(funcName: beerVM.getBeersFromName, req: "")
+            }
             return
         }
 
         beerVM.debounce_timer?.invalidate()
         beerVM.debounce_timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-            //print ("https://api.punkapi.com/v2/beers?beer_name="+searchText)
-//            self.af_request(
-//                url: "https://api.punkapi.com/v2/beers?per_page=\(self.pagination)&beer_name="+searchText,
-//                structure: [Beer].self,
-//                completion: { res in
-//                    self.page = 1
-//                    self.pages = [1]
-//                    self.items = res
-//                    DispatchQueue.main.async {
-//                        self.tableView.reloadData()
-//                    }
-//                }
-//           )
+            Task{
+                await self.getData(funcName: self.beerVM.getBeersFromName, req: searchText)
+            }
         }
     }
 
@@ -129,18 +108,4 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         controller.beer = beerChoosed
     }
     
-//    func af_request<T: Decodable>(url: String,
-//                                  structure: [T].Type,
-//                                  completion: @escaping ([T]) -> Void) {
-//        activityIndicatorView.startAnimating()
-//        AF.request(url).responseDecodable(of: structure) {  response in
-//            switch response.result {
-//                case .success:
-//                completion(response.value ?? [])
-//                case .failure(let error):
-//                        print("\n Failure: \(error.localizedDescription)")
-//                }
-//            self.activityIndicatorView.stopAnimating()
-//        }
-//    }
 }

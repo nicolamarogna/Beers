@@ -13,7 +13,6 @@ class APIService: NSObject {
     func af_request<T: Decodable>(url: String,
                                   structure: [T].Type,
                                   completion: @escaping ([T]) -> Void) {
-        //self.activityIndicatorView.startAnimating()
         AF.request(url).responseDecodable(of: structure) {  response in
             switch response.result {
                 case .success:
@@ -21,7 +20,6 @@ class APIService: NSObject {
                 case .failure(let error):
                         print("\n Failure: \(error.localizedDescription)")
                 }
-            //self.activityIndicatorView.stopAnimating()
         }
     }
 
