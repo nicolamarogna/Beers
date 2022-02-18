@@ -32,33 +32,32 @@ class BeerVM: NSObject {
         self.apiService = APIService()
     }
     
-    func getBeersFromName(req: String) async throws -> [Beer] {
-        try await withUnsafeThrowingContinuation { continuation in
+    func getBeersFromName(req: String?, completion: @escaping () -> Void) {
             
-            let query = req.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 ? "&beer_name=\(req)" : ""
+        let query = (req?.trimmingCharacters(in: .whitespacesAndNewlines).count)! > 0 ? "&beer_name=\(req!)" : ""
             
-            self.apiService.af_request(url: "\(baseUrl)?per_page=\(self.pagination)\(query)",
-                                       structure: [Beer].self, completion: { res in
-                self.items = res
-                self.page = 1
-                self.pages = [1]
-                continuation.resume(returning: res)
-                return
-            })
-        }
+        self.apiService.af_request(url: "\(baseUrl)?per_page=\(self.pagination)\(query)",
+                                   structure: [Beer].self, completion: { res in
+            self.items = res
+            self.page = 1
+            self.pages = [1]
+            completion()
+        })
+        
+    }
+    
+    func getMoreBeers(req: String?, completion: @escaping () -> Void) {
+        
+        self.apiService.af_request(url: "\(baseUrl)?per_page=\(self.pagination)&page=\(self.page+1)\(req!)",
+                                   structure: [Beer].self, completion: { res in
+            self.items.append(contentsOf: res)
+            self.page += 1
+            self.pages.append(self.page)
+            completion()
+        })
+
     }
 
-    func getMoreBeers(req: String?) async throws -> [Beer] {
-        try await withUnsafeThrowingContinuation { continuation in
-            self.apiService.af_request(url: "\(baseUrl)?per_page=\(self.pagination)&page=\(self.page+1)\(req!)",
-                                       structure: [Beer].self, completion: { res in
-                self.items.append(contentsOf: res)
-                self.page += 1
-                self.pages.append(self.page)
-                continuation.resume(returning: res)
-                return
-            })
-        }
-    }
+    
 
 }

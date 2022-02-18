@@ -31,25 +31,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.rowHeight = 100
         self.beerVM = BeerVM()
         
-        Task{
-            await getData(funcName: beerVM.getMoreBeers, req: "")
-        }
+        getData(funcName: beerVM.getMoreBeers, req: "")
     }
     
-    func getData(funcName: (String) async throws -> [Beer], req: String?) async{
+    func getData(funcName: (String?, @escaping () -> Void) -> () , req: String?) {
         DispatchQueue.main.async {
             self.activityIndicatorView.startAnimating()
         }
         
-        do{
-            let _ = try await funcName(req!)
+        funcName(req!) {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-        } catch {
-            print(error)
         }
-        
+           
         DispatchQueue.main.async {
             self.activityIndicatorView.stopAnimating()
         }
@@ -76,9 +71,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let req_beer = (beerVM.searchText != "") ? "&beer_name=\(beerVM.searchText)" : ""
         let lastElement = (beerVM.pagination * beerVM.page) - 1
         if indexPath.row == lastElement && !beerVM.pages.contains(beerVM.page+1) {
-            Task{
-                await getData(funcName: beerVM.getMoreBeers, req: req_beer)
-            }
+            getData(funcName: self.beerVM.getMoreBeers, req: req_beer)
         }
     }
     
@@ -88,17 +81,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if searchText.isEmpty {
             self.searchBarView.resignFirstResponder()
-            Task{
-                await getData(funcName: beerVM.getBeersFromName, req: "")
-            }
+            getData(funcName: self.beerVM.getBeersFromName, req: "")
             return
         }
 
         beerVM.debounce_timer?.invalidate()
         beerVM.debounce_timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-            Task{
-                await self.getData(funcName: self.beerVM.getBeersFromName, req: searchText)
-            }
+            self.getData(funcName: self.beerVM.getBeersFromName, req: searchText)
         }
     }
 
