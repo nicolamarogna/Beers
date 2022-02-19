@@ -14,7 +14,6 @@ class BeerViewCell: UITableViewCell{
     @IBOutlet weak var imgBeer: UIImageView!
 }
 
-
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet var searchBarView: UISearchBar!
@@ -30,24 +29,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchBarView.delegate = self
         tableView.rowHeight = 100
         self.beerVM = BeerVM()
-        
+                
         getData(funcName: beerVM.getMoreBeers, req: "")
     }
     
-    func getData(funcName: (String?, @escaping () -> Void) -> () , req: String?) {
+    func dispatch(what: String) {
         DispatchQueue.main.async {
-            self.activityIndicatorView.startAnimating()
-        }
-        
-        funcName(req!) {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            switch what {
+                case "startLoader":
+                    self.activityIndicatorView.startAnimating()
+                case "stopLoader":
+                    self.activityIndicatorView.stopAnimating()
+                case "reloadTable":
+                    self.tableView.reloadData()
+                default:
+                return
             }
         }
-           
-        DispatchQueue.main.async {
-            self.activityIndicatorView.stopAnimating()
+    }
+    
+    func getData(funcName: (String?, @escaping () -> Void) -> () , req: String?) {
+        self.dispatch(what: "startLoader")
+        funcName(req!) {
+            self.dispatch(what: "reloadTable")
         }
+        self.dispatch(what: "stopLoader")
     }
     
 
