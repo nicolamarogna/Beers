@@ -35,18 +35,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     
-    func dispatch(obj: Any) {
+    func dispatch(obj: (@escaping () -> Void)) {
         DispatchQueue.main.async {
-            _ = obj
+            obj()
         }
     }
     
     func getData(funcName: (String?, @escaping () -> Void) -> () , req: String?) {
-        self.dispatch(obj: self.activityIndicatorView.startAnimating())
+        self.dispatch(obj: self.activityIndicatorView.startAnimating)
         funcName(req!) {
-            self.dispatch(obj: self.tableView.reloadData())
+            self.dispatch(obj: self.tableView.reloadData)
         }
-        self.dispatch(obj: self.activityIndicatorView.stopAnimating())
+        self.dispatch(obj: self.activityIndicatorView.stopAnimating)
     }
     
 
