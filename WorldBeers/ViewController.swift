@@ -33,27 +33,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         getData(funcName: beerVM.getMoreBeers, req: "")
     }
     
-    func dispatch(what: String) {
+    
+    
+    func dispatch(obj: Any) {
         DispatchQueue.main.async {
-            switch what {
-                case "startLoader":
-                    self.activityIndicatorView.startAnimating()
-                case "stopLoader":
-                    self.activityIndicatorView.stopAnimating()
-                case "reloadTable":
-                    self.tableView.reloadData()
-                default:
-                return
-            }
+            _ = obj
         }
     }
     
     func getData(funcName: (String?, @escaping () -> Void) -> () , req: String?) {
-        self.dispatch(what: "startLoader")
+        self.dispatch(obj: self.activityIndicatorView.startAnimating())
         funcName(req!) {
-            self.dispatch(what: "reloadTable")
+            self.dispatch(obj: self.tableView.reloadData())
         }
-        self.dispatch(what: "stopLoader")
+        self.dispatch(obj: self.activityIndicatorView.stopAnimating())
     }
     
 
