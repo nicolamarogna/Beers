@@ -18,6 +18,10 @@ class BeerVM: NSObject {
     var pages:[Int] = [0]
     var pagination: Int = 25
     var searchText: String = ""
+    var ABVval: Double? = 0
+    var ABVvalMinor: Bool = false
+    var IBUval: Double? = 0
+    var IBUvalMinor: Bool = false
 
     var bindBeerVMToController : (() -> ()) = { }
     
@@ -33,17 +37,18 @@ class BeerVM: NSObject {
     }
     
     func getBeersFromName(req: String?, completion: @escaping () -> Void) {
-            
         let query = (req?.trimmingCharacters(in: .whitespacesAndNewlines).count)! > 0 ? "&beer_name=\(req!)" : ""
-            
-        self.apiService.af_request(url: "\(baseUrl)?per_page=\(self.pagination)\(query)",
+
+        let queryABV = (ABVval != 0 && ABVvalMinor) ? "&abv_lt=\(ABVval!)" : "&abv_gt=\(ABVval!)"
+        let queryIBU = (IBUval != 0 && IBUvalMinor) ? "&ibu_lt=\(IBUval!)" : "&ibu_gt=\(IBUval!)"
+
+        self.apiService.af_request(url: "\(baseUrl)?per_page=\(self.pagination)\(query)\(queryABV)\(queryIBU)",
                                    structure: [Beer].self, completion: { res in
             self.items = res
             self.page = 1
             self.pages = [1]
             completion()
         })
-        
     }
     
     func getMoreBeers(req: String?, completion: @escaping () -> Void) {

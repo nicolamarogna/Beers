@@ -18,6 +18,7 @@
 		2EC904A127BE9F3200B00565 /* BeersVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC904A027BE9F3200B00565 /* BeersVM.swift */; };
 		2EDE38D427BEA6CA0053A45A /* Beer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC904A227BE9F3C00B00565 /* Beer.swift */; };
 		2EDE38D527BEA6E50053A45A /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC904A327BE9F5300B00565 /* APIService.swift */; };
+		2EEB7E3927CD12930012E51C /* settingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB7E3827CD12930012E51C /* settingsVC.swift */; };
 		A3FA9E69AC86FF855E5913B6 /* Pods_WorldBeers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F80A529913C58CFA6F1A39 /* Pods_WorldBeers.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		2EC904A027BE9F3200B00565 /* BeersVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeersVM.swift; sourceTree = "<group>"; };
 		2EC904A227BE9F3C00B00565 /* Beer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beer.swift; sourceTree = "<group>"; };
 		2EC904A327BE9F5300B00565 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		2EEB7E3827CD12930012E51C /* settingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsVC.swift; sourceTree = "<group>"; };
 		567E7A69EEFB20BE8D7E7D65 /* Pods-WorldBeers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorldBeers.release.xcconfig"; path = "Target Support Files/Pods-WorldBeers/Pods-WorldBeers.release.xcconfig"; sourceTree = "<group>"; };
 		C00182D78B9020E132FD0CFD /* Pods-WorldBeers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorldBeers.debug.xcconfig"; path = "Target Support Files/Pods-WorldBeers/Pods-WorldBeers.debug.xcconfig"; sourceTree = "<group>"; };
 		F8F80A529913C58CFA6F1A39 /* Pods_WorldBeers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WorldBeers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +83,7 @@
 				2E75E89F27BCEDAA0065997E /* ViewController.swift */,
 				2E6619FD27BD207000A43BEC /* BeerDetail.swift */,
 				2E6619FF27BD4D0800A43BEC /* Utils.swift */,
+				2EEB7E3827CD12930012E51C /* settingsVC.swift */,
 				2E75E8AF27BCF7D00065997E /* SceneDelegate.swift */,
 				2E75E8A127BCEDAA0065997E /* Main.storyboard */,
 				2E75E8A427BCEDAE0065997E /* Assets.xcassets */,
@@ -250,6 +253,7 @@
 				2EC904A127BE9F3200B00565 /* BeersVM.swift in Sources */,
 				2E661A0027BD4D0800A43BEC /* Utils.swift in Sources */,
 				2E6619FE27BD207000A43BEC /* BeerDetail.swift in Sources */,
+				2EEB7E3927CD12930012E51C /* settingsVC.swift in Sources */,
 				2E75E8A027BCEDAA0065997E /* ViewController.swift in Sources */,
 				2E75E89C27BCEDAA0065997E /* AppDelegate.swift in Sources */,
 				2EDE38D427BEA6CA0053A45A /* Beer.swift in Sources */,
@@ -331,7 +335,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -386,7 +390,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

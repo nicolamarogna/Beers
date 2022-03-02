@@ -20,7 +20,7 @@ class BeerDetail: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(beer)
+
         self.title = beer?.name
         let url = URL(string: beer?.image_url ?? "")
         self.beerImageView.sd_setImage(with: url)

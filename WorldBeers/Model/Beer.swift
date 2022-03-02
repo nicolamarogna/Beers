@@ -11,6 +11,6 @@ struct Beer: Decodable {
     let name: String
     let image_url: String?
     let description: String?
-    let abv: Decimal?
-    let ibu: Decimal?
+    let abv: Double?
+    let ibu: Double?
 }

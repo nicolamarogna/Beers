@@ -12,14 +12,20 @@ import SDWebImage
 class BeerViewCell: UITableViewCell{
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var imgBeer: UIImageView!
+    @IBOutlet weak var lblABV: UILabel!
+    @IBOutlet weak var lblIBU: UILabel!
 }
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIAdaptivePresentationControllerDelegate {
+    
     @IBOutlet var searchBarView: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    
     private var beerVM: BeerVM!
+    private var settingVC: SettingsVC!
+    
+    var filtersButton: UIButton?
     
     override func viewDidLoad()  {
         super.viewDidLoad()
@@ -27,26 +33,68 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         searchBarView.delegate = self
-        tableView.rowHeight = 100
+        filtersButton = searchBarView.value(forKey: "cancelButton") as? UIButton
+        filtersButton?.setTitle("Filtri", for: .normal)
+        settingVC = (self.storyboard?.instantiateViewController(withIdentifier: "settingsVC"))! as? SettingsVC
+
+        tableView.rowHeight = 80
         self.beerVM = BeerVM()
-                
+
+        filtersButton?.tintColor = .systemBlue
         getData(funcName: beerVM.getMoreBeers, req: "")
+        
+
     }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        settingVC.presentationController?.delegate = self
+        settingVC.presenting = self
+        self.present(settingVC, animated: true, completion: nil)
+    }
+
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        let modal = presentationController.presentedViewController as! SettingsVC
+        
+        self.dismissView(
+            sliderABV: modal.sliderABV,
+            sliderIBU: modal.sliderIBU,
+            ABVMinMaj: modal.ABVMinMaj,
+            IBUMinMaj: modal.IBUMinMaj
+        )
+ 
+    }
     
+    func dismissView(
+        sliderABV: UISlider,
+        sliderIBU: UISlider,
+        ABVMinMaj: UISegmentedControl,
+        IBUMinMaj: UISegmentedControl
+    ){
+        beerVM.ABVval = Double(String(format:"%.2f", Double(sliderABV.value)))
+        beerVM.IBUval = Double(String(format:"%.2f", Double(sliderIBU.value)))
+       
+        beerVM.ABVvalMinor = (ABVMinMaj.selectedSegmentIndex == 1) ? true : false
+        beerVM.IBUvalMinor = (IBUMinMaj.selectedSegmentIndex == 1) ? true : false
+        
+        filtersButton?.tintColor = (beerVM.ABVval != 0 || beerVM.IBUval != 0) ? .systemRed : .systemBlue
+
+        self.getData(funcName: self.beerVM.getBeersFromName, req: beerVM.searchText)
+       
+    }
+
     
-    func dispatch(obj: (@escaping () -> Void)) {
+    func dispatch(cb: (@escaping () -> Void)) {
         DispatchQueue.main.async {
-            obj()
+            cb()
         }
     }
     
     func getData(funcName: (String?, @escaping () -> Void) -> () , req: String?) {
-        self.dispatch(obj: self.activityIndicatorView.startAnimating)
+        self.dispatch(cb: self.activityIndicatorView.startAnimating)
         funcName(req!) {
-            self.dispatch(obj: self.tableView.reloadData)
+            self.dispatch(cb: self.tableView.reloadData)
         }
-        self.dispatch(obj: self.activityIndicatorView.stopAnimating)
+        self.dispatch(cb: self.activityIndicatorView.stopAnimating)
     }
     
 
@@ -59,7 +107,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! BeerViewCell
 
         cell.title.text = beerVM.items[indexPath.row].name
-        
+        cell.lblABV.text = "ABV: "+check_abv_ibu(value: beerVM.items[indexPath.row].abv)
+        cell.lblIBU.text = "IBU: "+check_abv_ibu(value: beerVM.items[indexPath.row].ibu)
+
         let url = URL(string: beerVM.items[indexPath.row].image_url ?? "")
         cell.imgBeer.sd_setImage(with: url)
         
