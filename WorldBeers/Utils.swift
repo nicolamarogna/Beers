@@ -19,3 +19,5 @@ func setStepSlider(sender: UISlider, step: Float) {
     let roundedValue = round(sender.value / step) * step
     sender.value = roundedValue
 }
+
+

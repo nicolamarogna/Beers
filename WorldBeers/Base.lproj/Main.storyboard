@@ -12,7 +12,6 @@
         <!--SettingsVC-->
         <scene sceneID="Zfb-rJ-a7l">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XFJ-ur-lov" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="settingsVC" modalPresentationStyle="pageSheet" id="Cm0-Ah-WUW" customClass="SettingsVC" customModule="WorldBeers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFit" id="fsH-m2-D2r">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -72,26 +71,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zvs-Rk-52f">
-                                <rect key="frame" x="0.0" y="771" width="282" height="125"/>
-                                <color key="backgroundColor" systemColor="systemBlueColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="125" id="gsi-uX-ycK"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Imposta">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <connections>
-                                    <action selector="dismissView:" destination="Cm0-Ah-WUW" eventType="touchUpInside" id="2Ez-uf-jLs"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ut3-AU-GAY">
-                                <rect key="frame" x="290" y="771" width="124" height="125"/>
+                                <rect key="frame" x="290" y="771" width="104" height="68"/>
                                 <color key="backgroundColor" systemColor="systemGray3Color"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="125" id="Wwr-v6-AVa"/>
+                                    <constraint firstAttribute="height" constant="68" id="Wwr-v6-AVa"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -100,6 +84,21 @@
                                 </state>
                                 <connections>
                                     <action selector="resetFilters" destination="Cm0-Ah-WUW" eventType="touchUpInside" id="Omn-1F-Vmj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zvs-Rk-52f">
+                                <rect key="frame" x="20" y="771" width="262" height="68"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="gsi-uX-ycK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Imposta">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissView:" destination="Cm0-Ah-WUW" eventType="touchUpInside" id="2Ez-uf-jLs"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -111,11 +110,11 @@
                             <constraint firstItem="E9D-8f-LPU" firstAttribute="leading" secondItem="UVC-b8-3Gk" secondAttribute="leading" constant="20" id="2v0-Ng-rXj"/>
                             <constraint firstItem="ecB-Ic-Tfj" firstAttribute="top" secondItem="E9D-8f-LPU" secondAttribute="bottom" constant="54" id="EED-4B-HvT"/>
                             <constraint firstItem="FJA-F1-4Lf" firstAttribute="trailing" secondItem="E9D-8f-LPU" secondAttribute="trailing" id="GYg-kQ-BU0"/>
-                            <constraint firstItem="Zvs-Rk-52f" firstAttribute="bottom" secondItem="UVC-b8-3Gk" secondAttribute="bottom" constant="34" id="JmF-dV-Ybr"/>
+                            <constraint firstItem="Zvs-Rk-52f" firstAttribute="bottom" secondItem="UVC-b8-3Gk" secondAttribute="bottom" constant="-23" id="JmF-dV-Ybr"/>
                             <constraint firstItem="UVC-b8-3Gk" firstAttribute="trailing" secondItem="qs4-wX-lZv" secondAttribute="trailing" constant="21" id="OX1-Gk-0bC"/>
                             <constraint firstItem="jBp-dP-2EQ" firstAttribute="top" secondItem="fsH-m2-D2r" secondAttribute="top" constant="324" id="OXQ-Nk-3pX"/>
                             <constraint firstItem="XiV-5A-4oD" firstAttribute="centerX" secondItem="UVC-b8-3Gk" secondAttribute="centerX" id="Oej-z2-OGR"/>
-                            <constraint firstItem="UVC-b8-3Gk" firstAttribute="trailing" secondItem="ut3-AU-GAY" secondAttribute="trailing" id="PY8-bP-4ga"/>
+                            <constraint firstItem="UVC-b8-3Gk" firstAttribute="trailing" secondItem="ut3-AU-GAY" secondAttribute="trailing" constant="20" id="PY8-bP-4ga"/>
                             <constraint firstItem="ecB-Ic-Tfj" firstAttribute="centerX" secondItem="UVC-b8-3Gk" secondAttribute="centerX" id="Riz-6T-pFQ"/>
                             <constraint firstItem="jBp-dP-2EQ" firstAttribute="leading" secondItem="qs4-wX-lZv" secondAttribute="leading" id="VK1-Xb-E5p"/>
                             <constraint firstItem="ecB-Ic-Tfj" firstAttribute="leading" secondItem="FJA-F1-4Lf" secondAttribute="leading" id="W9C-Ax-Z9H"/>
@@ -129,7 +128,7 @@
                             <constraint firstItem="UVC-b8-3Gk" firstAttribute="trailing" secondItem="9q2-wY-zg0" secondAttribute="trailing" constant="21" id="hwe-ba-Ngu"/>
                             <constraint firstItem="jBp-dP-2EQ" firstAttribute="centerX" secondItem="E9D-8f-LPU" secondAttribute="centerX" id="jwi-Fa-Aoi"/>
                             <constraint firstItem="E9D-8f-LPU" firstAttribute="leading" secondItem="FJA-F1-4Lf" secondAttribute="leading" id="ksK-je-7Hn"/>
-                            <constraint firstItem="FJA-F1-4Lf" firstAttribute="leading" secondItem="Zvs-Rk-52f" secondAttribute="leading" constant="20" id="mBG-hn-oj2"/>
+                            <constraint firstItem="FJA-F1-4Lf" firstAttribute="leading" secondItem="Zvs-Rk-52f" secondAttribute="leading" id="mBG-hn-oj2"/>
                             <constraint firstItem="E9D-8f-LPU" firstAttribute="top" secondItem="qs4-wX-lZv" secondAttribute="bottom" constant="8" symbolic="YES" id="rIV-hM-d16"/>
                             <constraint firstItem="jBp-dP-2EQ" firstAttribute="top" secondItem="ecB-Ic-Tfj" secondAttribute="bottom" constant="8" symbolic="YES" id="u84-M0-ggf"/>
                             <constraint firstItem="jBp-dP-2EQ" firstAttribute="leading" secondItem="UVC-b8-3Gk" secondAttribute="leading" constant="20" id="xWT-K2-VNN"/>
@@ -146,6 +145,7 @@
                         <outlet property="view" destination="fsH-m2-D2r" id="YiA-Dm-vPc"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XFJ-ur-lov" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2455.072463768116" y="-1884.375"/>
         </scene>

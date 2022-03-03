@@ -8,5 +8,6 @@ target 'WorldBeers' do
   # Pods for WorldBeers
   pod 'Alamofire', '~> 5.5'
   pod 'SDWebImage', '~> 5.0'
+  pod 'BadgeSwift', '~> 8.0'
 
 end

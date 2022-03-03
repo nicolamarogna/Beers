@@ -1,22 +1,26 @@
 PODS:
   - Alamofire (5.5.0)
+  - BadgeSwift (8.0.0)
   - SDWebImage (5.12.3):
     - SDWebImage/Core (= 5.12.3)
   - SDWebImage/Core (5.12.3)
 
 DEPENDENCIES:
   - Alamofire (~> 5.5)
+  - BadgeSwift (~> 8.0)
   - SDWebImage (~> 5.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - BadgeSwift
     - SDWebImage
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  BadgeSwift: a81547ffde1f462bb5fc02e3fa3fdcbc1b888354
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
 
-PODFILE CHECKSUM: ecc42de29e4d187a3b5438a3a50b8419c9727452
+PODFILE CHECKSUM: 72b2fe3811901b23fd2d19aa46029dd897c53656
 
 COCOAPODS: 1.11.2

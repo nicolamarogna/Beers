@@ -19,7 +19,6 @@
 		2EDE38D427BEA6CA0053A45A /* Beer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC904A227BE9F3C00B00565 /* Beer.swift */; };
 		2EDE38D527BEA6E50053A45A /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC904A327BE9F5300B00565 /* APIService.swift */; };
 		2EEB7E3927CD12930012E51C /* settingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB7E3827CD12930012E51C /* settingsVC.swift */; };
-		A3FA9E69AC86FF855E5913B6 /* Pods_WorldBeers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F80A529913C58CFA6F1A39 /* Pods_WorldBeers.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +47,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3FA9E69AC86FF855E5913B6 /* Pods_WorldBeers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +151,8 @@
 			dependencies = (
 			);
 			name = WorldBeers;
+			packageProductDependencies = (
+			);
 			productName = WorldBeers;
 			productReference = 2E75E89827BCEDAA0065997E /* WorldBeers.app */;
 			productType = "com.apple.product-type.application";
@@ -181,6 +181,9 @@
 				Base,
 			);
 			mainGroup = 2E75E88F27BCEDAA0065997E;
+			packageReferences = (
+				2ED966F127D0DFBA00B6D3EC /* XCRemoteSwiftPackageReference "swift-badge" */,
+			);
 			productRefGroup = 2E75E89927BCEDAA0065997E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -482,6 +485,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2ED966F127D0DFBA00B6D3EC /* XCRemoteSwiftPackageReference "swift-badge" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/swift-badge.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 2E75E89027BCEDAA0065997E /* Project object */;
 }

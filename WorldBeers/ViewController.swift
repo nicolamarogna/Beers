@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import SDWebImage
+import BadgeSwift
 
 class BeerViewCell: UITableViewCell{
     @IBOutlet weak var title: UILabel!
@@ -26,7 +27,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private var settingVC: SettingsVC!
     
     var filtersButton: UIButton?
-    
+    let badge = BadgeSwift()
+    var badgeIsShowed = false
+
     override func viewDidLoad()  {
         super.viewDidLoad()
         navigationItem.titleView = searchBarView
@@ -35,6 +38,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchBarView.delegate = self
         filtersButton = searchBarView.value(forKey: "cancelButton") as? UIButton
         filtersButton?.setTitle("Filtri", for: .normal)
+        
+        badge.textColor = .white
+        badge.alpha = 0.0
+        searchBarView.addSubview(badge)
+
         settingVC = (self.storyboard?.instantiateViewController(withIdentifier: "settingsVC"))! as? SettingsVC
 
         tableView.rowHeight = 80
@@ -42,10 +50,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         filtersButton?.tintColor = .systemBlue
         getData(funcName: beerVM.getMoreBeers, req: "")
-        
-
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.badge.frame = CGRect(x:self.filtersButton!.frame.origin.x+self.filtersButton!.frame.size.width,y:15,width: 10, height: 10)
+
+    }
+        
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         settingVC.presentationController?.delegate = self
         settingVC.presenting = self
@@ -76,12 +87,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         beerVM.ABVvalMinor = (ABVMinMaj.selectedSegmentIndex == 1) ? true : false
         beerVM.IBUvalMinor = (IBUMinMaj.selectedSegmentIndex == 1) ? true : false
         
-        filtersButton?.tintColor = (beerVM.ABVval != 0 || beerVM.IBUval != 0) ? .systemRed : .systemBlue
+        (beerVM.ABVval != 0 || beerVM.IBUval != 0)
+        ? (!badgeIsShowed) ? showBadge(true) : nil
+        : (badgeIsShowed) ? showBadge(false) : nil
 
         self.getData(funcName: self.beerVM.getBeersFromName, req: beerVM.searchText)
-       
     }
 
+    func showBadge(_ show: Bool) {
+        badge.alpha = show ? 0.0 : 1.0
+        UIView.animate(withDuration: 1, delay: 0.5, options: .curveEaseIn, animations: {
+            self.badge.alpha = show ? 1.0 : 0.0
+            }, completion: nil)
+        self.badgeIsShowed = show
+    }
     
     func dispatch(cb: (@escaping () -> Void)) {
         DispatchQueue.main.async {
